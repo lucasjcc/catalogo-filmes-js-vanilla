@@ -1,0 +1,44 @@
+body {
+  background-color: rgb(210, 207, 207);
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 300px;
+}
+
+input {
+  height: 30px;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+button {
+  background-color: rgb(34, 34, 147);
+  height: 30px;
+  border-radius: 5px;
+  color: white;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+.toast {
+  background-color: rgba(65, 115, 65, 0.7);
+  position: fixed;
+  right: 40px;
+  top: 20px;
+  padding: 10px;
+  border-radius: 10px;
+  font-size: 12px;
+  color: white;
+}

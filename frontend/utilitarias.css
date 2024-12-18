@@ -17,3 +17,7 @@
   font-family: "Manrope", sans-serif;
   font-weight: 800;
 }
+
+.esconder {
+  display: none;
+}

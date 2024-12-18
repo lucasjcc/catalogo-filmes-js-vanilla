@@ -1,0 +1,60 @@
+body {
+  height: 100vh;
+}
+
+.header {
+  background-color: #a785ed;
+  height: 10vh;
+  padding: 5px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header__titulo {
+  color: white;
+  font-size: 36px;
+}
+
+.header__tema:hover {
+  cursor: pointer;
+}
+
+main {
+  height: 90vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.pesquisar {
+  padding: 10px;
+  width: 400px;
+}
+
+.container-filmes {
+  width: 936px;
+  height: 301px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.container-filmes__seta-esquerda:hover {
+  cursor: pointer;
+}
+
+.filme {
+  background-color: tomato;
+  width: 168px;
+  height: 100%;
+  cursor: pointer;
+}
+
+.container-filmes__seta-direita:hover {
+  cursor: pointer;
+}
