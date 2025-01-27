@@ -12,6 +12,35 @@
 
 ## frontend
 
+### Telas
+
+#### Tela de Login
+
+Crie uma tela de login simples com os campos nome e e-mail.
+
+#### Tela principal
+
+<figure>
+  <img src="./assets-readme/tela-home-clara.png" alt="Tela inicial clara" />
+  <figcaption>Tela inicial clara</figcaption>
+</figure>
+
+<figure>
+  <img src="./assets-readme/tela-home-escura.png" alt="Tela inicial escura" />
+  <figcaption>Tela inicial escura</figcaption>
+</figure>
+
+#### Modal de detalhamento de filmes
+
+<figure>
+  <img src="./assets-readme/tela-detalhe-filme.png" alt="Modal de detalhe de um filme" />
+  <figcaption>Modal de detalhe de um filme</figcaption>
+</figure>
+
+### Detalhes
+
+Para maiores detalhes:
+
 - Abra o Figma
 - Use o arquivo .fig para visualizar o design do projeto
 
