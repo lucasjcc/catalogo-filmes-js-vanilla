@@ -24,9 +24,7 @@ export const logarUsuario = (req, res) => {
       return res.status(400).json({ mensagem: "Email ou senha inválidos" });
     }
 
-    const token = jwt.sign({ id: usuarioCadastrado.id }, senhaJwt, {
-      expiresIn: "1h",
-    });
+    const token = jwt.sign({ id: usuarioCadastrado.id }, senhaJwt);
 
     return res.status(200).json({ token });
   } catch (error) {
