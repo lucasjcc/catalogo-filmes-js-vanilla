@@ -21,3 +21,8 @@
 .esconder {
   display: none;
 }
+
+.tema-escuro {
+  background-color: #242424;
+  color: white;
+}
