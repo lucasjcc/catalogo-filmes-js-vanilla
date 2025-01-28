@@ -1,6 +1,8 @@
 const body = document.querySelector("body");
 const divContainerFilmes = document.querySelector("#container-filmes");
 const inputPesquisar = document.querySelector("#pesquisar");
+const setaDireita = document.querySelector("#seta-direita");
+const setaEsqueda = document.querySelector("#seta-esquerda");
 
 let paginaAtual = 1;
 let quantidadeFilmesMostados = 5;
@@ -8,7 +10,22 @@ let quantidadeFilmes = undefined;
 let filmesEncontrados = [];
 let temaAtual = "claro";
 
-const setaDireita = document.querySelector("#seta-direita");
+inputPesquisar.addEventListener("input", (e) => {
+  if (filmesEncontrados.length === 0) {
+    return;
+  }
+
+  const filtro = e.target.value;
+  const filmesFiltrados = filmesEncontrados.filter((filme) => {
+    const nomeFilme = filme.original_title;
+    if (nomeFilme.toUpperCase().includes(filtro.toUpperCase())) {
+      return filme;
+    }
+  });
+
+  mostrarFilmes(filmesFiltrados);
+});
+
 setaDireita.addEventListener("click", () => {
   if (!quantidadeFilmes) return;
   const quantidadePaginas = Math.floor(
@@ -17,16 +34,15 @@ setaDireita.addEventListener("click", () => {
 
   if (paginaAtual >= quantidadePaginas) {
     paginaAtual = 1;
-    mostrarFilmes();
+    mostrarFilmes(filmesEncontrados);
     return;
   }
 
   paginaAtual++;
-  mostrarFilmes();
+  mostrarFilmes(filmesEncontrados);
   return;
 });
 
-const setaEsqueda = document.querySelector("#seta-esquerda");
 setaEsqueda.addEventListener("click", () => {
   if (!quantidadeFilmes) return;
   const quantidadePaginas = Math.floor(
@@ -35,12 +51,12 @@ setaEsqueda.addEventListener("click", () => {
 
   if (paginaAtual <= 1) {
     paginaAtual = quantidadePaginas;
-    mostrarFilmes();
+    mostrarFilmes(filmesEncontrados);
     return;
   }
 
   paginaAtual--;
-  mostrarFilmes();
+  mostrarFilmes(filmesEncontrados);
   return;
 });
 
@@ -83,7 +99,6 @@ function criarFilme(nome, imagemFilme, notaFilme) {
   const articleFilme = document.createElement("article");
   articleFilme.classList.add("filme");
   articleFilme.style.backgroundImage = `url(${imagemFilme})`;
-  console.log(imagemFilme);
 
   const divContainerInfo = document.createElement("div");
   divContainerInfo.classList.add("filme__container-info");
@@ -112,18 +127,27 @@ function criarFilme(nome, imagemFilme, notaFilme) {
   divContainerFilmes.appendChild(articleFilme);
 }
 
-function mostrarFilmes() {
+function mostrarFilmes(filmes) {
+  divContainerFilmes.textContent = "";
+
+  if (filmes.length === 0) {
+    return;
+  }
+
   const indexPrimeiroFilmeMostrado =
     (paginaAtual - 1) * quantidadeFilmesMostados;
-  const indexUltimoFilmeMostrado =
-    indexPrimeiroFilmeMostrado + quantidadeFilmesMostados;
-  quantidadeFilmes = filmesEncontrados.length;
 
-  divContainerFilmes.textContent = "";
+  quantidadeFilmes = filmes.length;
+
+  const indexUltimoFilmeMostrado =
+    quantidadeFilmes < quantidadeFilmesMostados
+      ? quantidadeFilmes
+      : indexPrimeiroFilmeMostrado + quantidadeFilmesMostados;
+
   for (let i = indexPrimeiroFilmeMostrado; i < indexUltimoFilmeMostrado; i++) {
-    const nomeFilme = filmesEncontrados[i].original_title;
-    const imagemFilme = filmesEncontrados[i].poster_path;
-    const notaFilme = filmesEncontrados[i].vote_average;
+    const nomeFilme = filmes[i].original_title;
+    const imagemFilme = filmes[i].poster_path;
+    const notaFilme = filmes[i].vote_average;
     criarFilme(nomeFilme, imagemFilme, notaFilme);
   }
 }
@@ -150,7 +174,7 @@ async function buscarFilmes() {
 
     filmesEncontrados = await respostaRequisicao.json();
 
-    mostrarFilmes();
+    mostrarFilmes(filmesEncontrados);
     return;
   } catch (error) {
     exibirToast("Ocorreu um erro. Tente mais tarde!");
