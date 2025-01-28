@@ -2,6 +2,23 @@ body {
   height: 100vh;
 }
 
+.toast {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  padding: 10px;
+  color: white;
+  border-radius: 10px;
+}
+
+.toast--sucesso {
+  background-color: rgba(31, 86, 31, 80%);
+}
+
+.toast--falha {
+  background-color: rgb(196, 31, 31, 80%);
+}
+
 .header {
   background-color: #a785ed;
   height: 10vh;
@@ -33,9 +50,16 @@ main {
 .pesquisar {
   padding: 10px;
   width: 400px;
+  border: 1px solid #979797;
+  border-radius: 5px;
+  color: #979797;
 }
 
-.container-filmes {
+.pesquisar:focus {
+  outline: 2px solid #979797;
+}
+
+.container-carrossel {
   width: 936px;
   height: 301px;
   display: flex;
@@ -44,17 +68,50 @@ main {
   align-items: center;
 }
 
-.container-filmes__seta-esquerda:hover {
+.container-carrossel__seta-esquerda:hover {
+  cursor: pointer;
+}
+
+.container-filmes {
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+}
+
+.container-carrossel__seta-direita:hover {
   cursor: pointer;
 }
 
 .filme {
-  background-color: tomato;
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
   width: 168px;
   height: 100%;
   cursor: pointer;
+  /* background-image: url("https://image.tmdb.org/t/p/original/zX2UeAmF8XDBJM3sZ0RS0jLQ8Gg.jpg"); */
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
-.container-filmes__seta-direita:hover {
-  cursor: pointer;
+.filme__container-info {
+  height: 13.33%;
+  color: #fdfdfd;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background: rgba(0, 0, 0, 80%);
+}
+
+.container-info__container-nota {
+  display: flex;
+  height: 100%;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 5px;
+  color: #fbcd6e;
 }

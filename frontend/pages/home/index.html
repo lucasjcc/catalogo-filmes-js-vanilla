@@ -9,25 +9,37 @@
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="../../global.css">
   <link rel="stylesheet" href="../../utilitarias.css">
+  <script src="./script.js" defer></script>
 </head>
 
 <body>
+  <div class="toast esconder">
+    <p class="toast__mensagem">Mensagem</p>
+  </div>
 
   <header class="header">
     <img src="../../assets/logo.svg" alt="Logo" class="header__logo">
     <h1 class="header__titulo manrope-700">Cubos Flix</h1>
-    <img src="../../assets/light-mode.svg" alt="Modo claro" class="header__tema">
+    <img id="tema" src="../../assets/light-mode.svg" alt="Modo claro" class="header__tema">
   </header>
   <main>
-    <input type="text" placeholder="Pesquisar" class="pesquisar">
-    <div class="container-filmes">
-      <img src="../../assets/seta-esquerda-preta.svg" alt="Seta para esquerda" class="container-filmes__seta-esquerda">
-      <article class="filme"></article>
-      <article class="filme"></article>
-      <article class="filme"></article>
-      <article class="filme"></article>
-      <article class="filme"></article>
-      <img src="../../assets/seta-direita-preta.svg" alt="Seta para direita" class="container-filmes__seta-direita">
+    <input id="pesquisar" type="text" placeholder="Pesquisar" class="pesquisar">
+    <div id="container-carrossel" class="container-carrossel">
+      <img id="seta-esquerda" src="../../assets/seta-esquerda-preta.svg" alt="Seta para esquerda"
+        class="container-carrossel__seta-esquerda">
+      <div class="container-filmes" id="container-filmes">
+        <!-- <article class="filme">
+          <div class="filme__container-info">
+            <p class="filme__nome" class=".manrope-600">Joker</p>
+            <div class="container-info__container-nota">
+              <img class="container-nota__img" src="../../assets/estrela.svg" alt="Estrela">
+              <p class="container-nota__nota">8.8</p>
+            </div>
+          </div>
+        </article>  -->
+      </div>
+      <img id="seta-direita" src="../../assets/seta-direita-preta.svg" alt="Seta para direita"
+        class="container-carrossel__seta-direita">
     </div>
   </main>
 
