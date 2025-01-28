@@ -47,3 +47,14 @@ form.addEventListener("submit", async (event) => {
     mostrarToast(error.response.data.mensagem);
   }
 });
+
+function main() {
+  const token = localStorage.getItem("token");
+
+  if (token) {
+    window.location.href = "/frontend/pages/home";
+    return;
+  }
+}
+
+main();
