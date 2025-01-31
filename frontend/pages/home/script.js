@@ -3,6 +3,9 @@ const divContainerFilmes = document.querySelector("#container-filmes");
 const inputPesquisar = document.querySelector("#pesquisar");
 const setaDireita = document.querySelector("#seta-direita");
 const setaEsqueda = document.querySelector("#seta-esquerda");
+const modal = document.querySelector("#modal");
+const fecharModal = document.querySelector("#fecharModal");
+const mudarTema = document.querySelector("#tema");
 
 let paginaAtual = 1;
 let quantidadeFilmesMostados = 5;
@@ -16,12 +19,9 @@ inputPesquisar.addEventListener("input", (e) => {
   }
 
   const filtro = e.target.value;
-  const filmesFiltrados = filmesEncontrados.filter((filme) => {
-    const nomeFilme = filme.original_title;
-    if (nomeFilme.toUpperCase().includes(filtro.toUpperCase())) {
-      return filme;
-    }
-  });
+  const filmesFiltrados = filmesEncontrados.filter((filme) =>
+    filme.original_title.toUpperCase().includes(filtro.toUpperCase())
+  );
 
   mostrarFilmes(filmesFiltrados);
 });
@@ -60,7 +60,6 @@ setaEsqueda.addEventListener("click", () => {
   return;
 });
 
-const mudarTema = document.querySelector("#tema");
 mudarTema.addEventListener("click", () => {
   temaAtual = temaAtual === "claro" ? "escuro" : "claro";
 
@@ -95,10 +94,14 @@ function exibirToast(mensagem) {
   }, 2000);
 }
 
-function criarFilme(nome, imagemFilme, notaFilme) {
+function criarFilme(idFilme, nome, imagemFilme, notaFilme) {
   const articleFilme = document.createElement("article");
   articleFilme.classList.add("filme");
   articleFilme.style.backgroundImage = `url(${imagemFilme})`;
+
+  articleFilme.addEventListener("click", () => {
+    abrirModal(idFilme);
+  });
 
   const divContainerInfo = document.createElement("div");
   divContainerInfo.classList.add("filme__container-info");
@@ -145,11 +148,65 @@ function mostrarFilmes(filmes) {
       : indexPrimeiroFilmeMostrado + quantidadeFilmesMostados;
 
   for (let i = indexPrimeiroFilmeMostrado; i < indexUltimoFilmeMostrado; i++) {
+    const idFilme = filmes[i].id;
     const nomeFilme = filmes[i].original_title;
     const imagemFilme = filmes[i].poster_path;
     const notaFilme = filmes[i].vote_average;
-    criarFilme(nomeFilme, imagemFilme, notaFilme);
+    criarFilme(idFilme, nomeFilme, imagemFilme, notaFilme);
   }
+}
+
+function criarModal(idFilme) {
+  modal.textContent = "";
+
+  const filmeDetalhado = filmesEncontrados.find(
+    (filme) => filme.id === idFilme
+  );
+
+  const divNota = document.createElement("div");
+  divNota.classList.add("modal__nota", "manrope-700");
+  divNota.textContent = filmeDetalhado.vote_average;
+
+  const pDescricao = document.createElement("p");
+  pDescricao.classList.add("manrope-500");
+  pDescricao.textContent = filmeDetalhado.overview;
+
+  const imgFilmeDetalhado = document.createElement("img");
+  imgFilmeDetalhado.src = filmeDetalhado.poster_path;
+  imgFilmeDetalhado.alt = "Capa do filme";
+
+  const h2NomeFilme = document.createElement("h2");
+  h2NomeFilme.classList.add("modal__nome-filme", "manrope-700");
+  h2NomeFilme.textContent = filmeDetalhado.original_title;
+
+  const articleContainerFilme = document.createElement("article");
+  articleContainerFilme.classList.add("modal__filme");
+
+  articleContainerFilme.append(
+    h2NomeFilme,
+    imgFilmeDetalhado,
+    pDescricao,
+    divNota
+  );
+
+  const imgFechar = document.createElement("img");
+  imgFechar.classList.add("modal__fechar");
+  imgFechar.src = "../../assets/close.svg";
+  imgFechar.alt = "Fechar";
+
+  imgFechar.addEventListener("click", handleFecharModal);
+
+  modal.append(imgFechar, articleContainerFilme);
+}
+
+function abrirModal(idFilme) {
+  criarModal(idFilme);
+  modal.classList.remove("esconder");
+}
+
+function handleFecharModal() {
+  modal.textContent = "";
+  modal.classList.add("esconder");
 }
 
 async function buscarFilmes() {
@@ -166,7 +223,10 @@ async function buscarFilmes() {
       },
     });
 
-    if (respostaRequisicao.status === 401) {
+    if (
+      respostaRequisicao.status === 401 ||
+      respostaRequisicao.status === 403
+    ) {
       localStorage.removeItem("token");
       window.location.href = "/frontend";
       return;

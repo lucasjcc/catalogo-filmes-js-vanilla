@@ -115,3 +115,50 @@ main {
   gap: 5px;
   color: #fbcd6e;
 }
+
+.modal {
+  background-color: rgba(0, 0, 0, 80%);
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+}
+
+.modal__fechar {
+  position: absolute;
+  right: 40px;
+  top: 40px;
+  width: 34px;
+}
+
+.modal__fechar:hover {
+  cursor: pointer;
+}
+
+.modal__filme {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 600px;
+  gap: 20px;
+  color: white;
+}
+
+.modal__filme img {
+  height: 400px;
+}
+
+.modal__nome-filme {
+  font-size: 36px;
+}
+
+.modal__nota {
+  align-self: flex-end;
+  padding: 10px;
+  background-color: #a785ed;
+  border-radius: 5px;
+}
